@@ -1,0 +1,77 @@
+
+Inside of cleos directory
+<GENERATE WAST AND ABI FILES>
+eosiocpp -o ~/eosstart/Oasis/contracts/Players/Players.wast ~/eosstart/Oasis/contracts/Players/Players.cpp
+eosiocpp -g ~/eosstart/Oasis/contracts/Players/Players.abi ~/eosstart/Oasis/contracts/Players/Players.cpp
+
+
+
+<COMMIT TO BLOCKCHAIN>
+It occurred in block 40404
+2773540ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 00009dd44f52a0bc... #40404 @ 2018-06-05T19:46:13.500 signed by eosio [trxs: 1, lib: 40403, confirmed: 0]
+
+cleos wallet unlock -n Oasis --password PW5JMiXMx8PiqP6yZEt33QReuQ9GHvjBej6PAfSrdrVjETKHw9coc
+Unlocked: Oasis
+cleos set contract anorak ~/eosstart/Oasis/contracts/Players ~/eosstart/Oasis/contracts/Players/Players.wast ~/eosstart/Oasis/contracts/Players/Players.abi
+Reading WAST/WASM from /Users/duncwa/eosstart/Oasis/contracts/Players/Players.wast...
+Assembling WASM...
+Publishing contract...
+executed transaction: 5680bb56c4a784a56e9bb041c957a0910c70b391e1d89e0b8d77cc6a9a715410  2936 bytes  31424 us
+#         eosio <= eosio::setcode               {"account":"anorak","vmtype":0,"vmversion":0,"code":"0061736d01000000013e0c60047f7e7f7e0060027f7e006...
+#         eosio <= eosio::setabi                {"account":"anorak","abi":"0e656f73696f3a3a6162692f312e30000406706c6179657200050c6163636f756e745f6e6...
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+<TEST THE CONTRACT BY ADDING A PLAYER>
+cleos push action anorak add '["anorak","art3mis"]' -p anorak@active
+
+Blockchain reported:
+3393007ms thread-0   http_plugin.cpp:369           handle_exception     ] FC Exception encountered while processing chain.push_transaction: 3080006 deadline_exception: transaction took too long
+deadline exceeded
+    {"now":"2018-06-05T19:56:32.996","deadline":"2018-06-05T19:56:32.796","start":"2018-06-05T19:56:32.766"}
+    thread-0  transaction_context.cpp:288 checktime
+
+    {"_pending_console_output.str()":""}
+    thread-0  apply_context.cpp:53 exec_one
+
+SUCCESS added this to startup of --max-transaction-time=1000
+
+It occurred in block 42234
+103506ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000a4fa056e2130... #42234 @ 2018-06-05T20:01:43.500 signed by eosio [trxs: 1, lib: 42233, confirmed: 0]
+
+cleos push action anorak add '["anorak","art3mis"]' -p anorak@active
+executed transaction: 8dc64ec77afc79f16ab4b206e304cfbeb6b4734aa8f9489d83afbc037518b530  120 bytes  6132 us
+#        anorak <= anorak::add                  {"account":"anorak","username":"art3mis","level":0}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+<TEST THE CONTRACT BY CHECKING FOR A PLAYER>
+cleos push action anorak getplayer '["anorak"]' -p anorak@active
+
+It occurred in block 42779
+376505ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000a71c65dcf986... #42780 @ 2018-06-05T20:06:16.500 signed by eosio [trxs: 1, lib: 42779, confirmed: 0]
+
+cleos push action anorak getplayer '["anorak"]' -p anorak@active
+executed transaction: c52f7531a6b03231b2cbc38228be6d9ebbb8b78da9db9ace742527ad2bfd3c36  104 bytes  263 us
+#        anorak <= anorak::getplayer            {"account":"anorak"}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+
+<TEST THE CONTRACT BY UPDATING THE PLAYER>
+cleos push action anorak update '["anorak",4,75,110]' -p anorak@active
+
+It occurred in block 43238
+606003ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000a8e76ad75b90... #43239 @ 2018-06-05T20:10:06.000 signed by eosio [trxs: 1, lib: 43238, confirmed: 0]
+
+cleos push action anorak update '["anorak",4,75,110]' -p anorak@active
+executed transaction: c3baf0d22a4b6cf6b66d12d6902282dcc06f6f07775c97f3520208372d8454c3  104 bytes  279 us
+#        anorak <= anorak::update               {"account":"anorak"}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+<TEST THE CONTRACT BY CHECKING FOR CHANGES TO A PLAYER>
+cleos push action anorak getplayer '["anorak"]' -p anorak@active
+
+It occurred in block 43592
+783007ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000aa492e178e0d... #43593 @ 2018-06-05T20:13:03.000 signed by eosio [trxs: 1, lib: 43592, confirmed: 0]
+
+cleos push action anorak getplayer '["anorak"]' -p anorak@active
+executed transaction: ca3c8a25f0648ad6d9d7e3c46e9586877278cf7edc08f727760dd7831b0b417d  104 bytes  266 us
+#        anorak <= anorak::getplayer            {"account":"anorak"}

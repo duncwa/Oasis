@@ -1,0 +1,173 @@
+Owner Key
+Private key: 5KMxAF6LtEpNZYMjtb7WLjgYFY5tiYyuDb188qpjUbXKKp7ZUqJ
+Public key: EOS7aDFLL7w1DeK3pVkUw7gyTJuDXC5ezB4p6svgdX55a7oDFVtcZ
+
+Active Key
+Private key: 5Hz4jhvwWW54pUXuET8tRJDsM5Cw6HBnnjybtp1Vdsc3VtEUzva
+Public key: EOS5p7LnjM6dvvf3HeYYPWuy42EUPK8gS2eq2C4B4RBSCFmtcUf3o
+
+<CREATE WALLET>
+cleos wallet create -n {duncwa}
+Creating wallet: {duncwa}
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5KRA5D3MVrbMts7BTZ9M74W8ouQH1bgtzyhcuaPRAb2bMUwaTtc"
+
+<IMPORT OWNER KEY>
+Owner Key
+cleos wallet import 5KMxAF6LtEpNZYMjtb7WLjgYFY5tiYyuDb188qpjUbXKKp7ZUqJ -n {duncwa}
+imported private key for: EOS7aDFLL7w1DeK3pVkUw7gyTJuDXC5ezB4p6svgdX55a7oDFVtcZ
+
+<UNLOCK WALLET>
+wallet unlock -n {duncwa}
+password: PW5KRA5D3MVrbMts7BTZ9M74W8ouQH1bgtzyhcuaPRAb2bMUwaTtc
+Unlocked: {duncwa}
+
+<IMPORT ACTIVE KEY>
+Active Key
+cleos wallet import 5Hz4jhvwWW54pUXuET8tRJDsM5Cw6HBnnjybtp1Vdsc3VtEUzva -n {duncwa}
+imported private key for: EOS5p7LnjM6dvvf3HeYYPWuy42EUPK8gS2eq2C4B4RBSCFmtcUf3o
+
+<CREATE EOSIO ACCOUNT>
+cleos create account eosio token EOS7aDFLL7w1DeK3pVkUw7gyTJuDXC5ezB4p6svgdX55a7oDFVtcZ EOS5p7LnjM6dvvf3HeYYPWuy42EUPK8gS2eq2C4B4RBSCFmtcUf3o
+executed transaction: 1b168c1660bdd21aed96e4da3e1eb8363b36eb10de98afad5d02e19ae0dde85f  200 bytes  1136 us
+#         eosio <= eosio::newaccount            {"creator":"eosio","name":"token","owner":{"threshold":1,"keys":[{"key":"EOS7aDFLL7w1DeK3pVkUw7gyTJu...
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+It occurred in block 8511
+3107004ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000213faaa2e9d5... #8511 @ 2018-05-31T16:51:47.000 signed by eosio [trxs: 1, lib: 8510, confirmed: 0]
+
+<VERIFY ACCOUNT EOSIO>
+--- similier to TOKEN ----- see below
+
+<VERIFY ACCOUNT TOKEN>
+cleos get account token --json
+{
+  "account_name": "token",
+  "privileged": false,
+  "last_code_update": "1970-01-01T00:00:00.000",
+  "created": "2018-05-31T16:51:47.000",
+  "ram_quota": -1,
+  "net_weight": -1,
+  "cpu_weight": -1,
+  "net_limit": {
+    "used": -1,
+    "available": -1,
+    "max": -1
+  },
+  "cpu_limit": {
+    "used": -1,
+    "available": -1,
+    "max": -1
+  },
+  "ram_usage": 2724,
+  "permissions": [{
+      "perm_name": "active",
+      "parent": "owner",
+      "required_auth": {
+        "threshold": 1,
+        "keys": [{
+            "key": "EOS5p7LnjM6dvvf3HeYYPWuy42EUPK8gS2eq2C4B4RBSCFmtcUf3o",
+            "weight": 1
+          }
+        ],
+        "accounts": [],
+        "waits": []
+      }
+    },{
+      "perm_name": "owner",
+      "parent": "",
+      "required_auth": {
+        "threshold": 1,
+        "keys": [{
+            "key": "EOS7aDFLL7w1DeK3pVkUw7gyTJuDXC5ezB4p6svgdX55a7oDFVtcZ",
+            "weight": 1
+          }
+        ],
+        "accounts": [],
+        "waits": []
+      }
+    }
+  ],
+  "total_resources": null,
+  "delegated_bandwidth": null,
+  "voter_info": null
+}
+
+<UPLOAD AND SET TOKEN CONTRACT TO BLOCKCHAIN>
+cd /Users/duncwa/eosstart/eos/build/contracts/eosio.token
+
+cleos set contract token ./contracts/eosio.token/ eosio.token.wast eosio.token.abi
+Reading WAST/WASM from eosio.token.wast...
+Assembling WASM...
+Publishing contract...
+executed transaction: 6140b4a495e254fc9aa3a3ee5c64a0b3e311d15ddc8723e9efe28639bc26700b  8104 bytes  2752 us
+#         eosio <= eosio::setcode               {"account":"token","vmtype":0,"vmversion":0,"code":"0061736d01000000017e1560037f7e7f0060057f7e7e7f7f...
+#         eosio <= eosio::setabi                {"account":"token","abi":"0e656f73696f3a3a6162692f312e30010c6163636f756e745f6e616d65046e616d65050874...
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+It occurred in block 9933
+218003ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 000026cd5df01c34... #9933 @ 2018-05-31T17:03:38.000 signed by eosio [trxs: 1, lib: 9932, confirmed: 0]
+
+
+cleos get code token
+code hash: 641f336aa1d08526201599c3c0ddb7a646e5ac8f9fd2493f56414d0422a0f957
+
+
+<CREATING TOKENS>
+It occurred in block 10377
+440002ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 00002889215e3bad... #10377 @ 2018-05-31T17:07:20.000 signed by eosio [trxs: 1, lib: 10376, confirmed: 0]
+
+cleos push action token create '{"issuer":"token","maximum_supply":"100.0000 TKN","can_freeze":"5","can_recall":"5","can_whitelist":"5"}' -p token
+executed transaction: c23c8dbbffc208dfda665e04d5580d1df7846cf8c027cfc2f3f19c47aed37f3a  120 bytes  1075 us
+#         token <= token::create                {"issuer":"token","maximum_supply":"100.0000 TKN"}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+<ISSUE TOKENS>
+It occurred at block 10726
+
+cleos push action token issue '{"to":"token","quantity":"100.0000 TKN","memo":""}' -p token
+executed transaction: d01fc1a295c627a6795bb642c4c07a091682104ea59b9665dfb2fcac82fa9fca  120 bytes  1460 us
+#         token <= token::issue                 {"to":"token","quantity":"100.0000 TKN","memo":""}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+<GET TOKEN BALANCE>
+cleos get table token token accounts
+{
+  "rows": [{
+      "balance": "100.0000 TKN"
+    }
+  ],
+  "more": false
+}
+
+<TRANSFER TOKENS>
+
+First attempt: Failure occurred at block 11421 (see block stream for error)
+Second attempt: It occurred at block 11500
+1001505ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 00002cecee0e7a5a... #11500 @ 2018-05-31T17:16:41.500 signed by eosio [trxs: 1, lib: 11499, confirmed: 0]
+
+cleos push action token transfer '{"from":"token","to":"eosio","quantity":"10.0000 TKN","memo":"DUNCWA LLC first transfer"}' -p token
+executed transaction: 9919b156cec01dfd367bad658a40bd683f444926071d4cbe3cb1cb12963eb31f  152 bytes  741 us
+#         token <= token::transfer              {"from":"token","to":"eosio","quantity":"10.0000 TKN","memo":"DUNCWA LLC first transfer"}
+#         eosio <= token::transfer              {"from":"token","to":"eosio","quantity":"10.0000 TKN","memo":"DUNCWA LLC first transfer"}
+warning: transaction executed locally, but may not be confirmed by the network yet
+
+
+<CHECK BALANCES>
+cleos get table token eosio accounts
+{
+  "rows": [{
+      "balance": "10.0000 TKN"
+    }
+  ],
+  "more": false
+}
+cleos get table token token accounts
+{
+  "rows": [{
+      "balance": "90.0000 TKN"
+    }
+  ],
+  "more": false
+}

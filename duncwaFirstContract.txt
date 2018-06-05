@@ -1,0 +1,42 @@
+
+
+<LAUNCH TESTNET>
+I added max reversible blocks to 9 million after not running for 24 hours
+
+nodeos -e -p eosio --plugin eosio::wallet_api_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --contracts-console --max-irreversible-block-age 9000000
+
+
+
+<CREATE WALLET>
+cleos wallet create -n oasis
+"/usr/local/bin/keosd" launched
+Creating wallet: oasis
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5JMiXMx8PiqP6yZEt33QReuQ9GHvjBej6PAfSrdrVjETKHw9coc"
+
+<CREATE KEY PAIR TWICE>
+
+<OWNER KEY>
+cleos create key
+Private key: 5K4fkXmoQ7tS4ueQtbEGJzhwjJUNAGJjMZLvnU146XCs5Yyx74q
+Public key: EOS7NXR35RXyY7PUAqTnYx13dpHiLaHYSDWecevWCuGBSxU2G1qQa
+
+<ACTIVE KEY>
+cleos create key
+Private key: 5KRrBusX6ELgaAeqAAPtSPbFDjLrJr4b29dPMghBPbCzpNfeG4d
+Public key: EOS84cAwfjf1qZYpJqirp7uZ5y3L97VRwRqdcQx2XvYhvGPsjcgr4
+
+<IMPORT BOTH PRIVATE KEYS>
+cleos wallet import 5K4fkXmoQ7tS4ueQtbEGJzhwjJUNAGJjMZLvnU146XCs5Yyx74q -n oasis
+imported private key for: EOS7NXR35RXyY7PUAqTnYx13dpHiLaHYSDWecevWCuGBSxU2G1qQa
+cleos wallet import 5KRrBusX6ELgaAeqAAPtSPbFDjLrJr4b29dPMghBPbCzpNfeG4d -n oasis
+imported private key for: EOS84cAwfjf1qZYpJqirp7uZ5y3L97VRwRqdcQx2XvYhvGPsjcgr4
+
+< >
+It occurred in block 16505
+1498504ms thread-0   producer_plugin.cpp:942       produce_block        ] Produced block 0000407950229b7d... #16505 @ 2018-06-01T16:24:58.500 signed by eosio [trxs: 1, lib: 16504, confirmed: 0]
+cleos create account eosio anorak EOS7NXR35RXyY7PUAqTnYx13dpHiLaHYSDWecevWCuGBSxU2G1qQa EOS84cAwfjf1qZYpJqirp7uZ5y3L97VRwRqdcQx2XvYhvGPsjcgr4
+executed transaction: 7095d969898a403c521fc2e6632adc1e59ec8fdd07af720f101b88fbfa577ab8  200 bytes  5955 us
+#         eosio <= eosio::newaccount            {"creator":"eosio","name":"anorak","owner":{"threshold":1,"keys":[{"key":"EOS7NXR35RXyY7PUAqTnYx13dp...
+warning: transaction executed locally, but may not be confirmed by the network yet

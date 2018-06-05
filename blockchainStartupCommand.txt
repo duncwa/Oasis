@@ -1,0 +1,6 @@
+
+STARTUP command
+
+
+# 06/05/18 added --max-transaction-time=1000
+nodeos -e -p eosio --plugin eosio::wallet_api_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_api_plugin --contracts-console --max-irreversible-block-age 900000 --max-transaction-time=1000
